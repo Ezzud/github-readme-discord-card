@@ -32,6 +32,7 @@ const getImageBufferFromUrl = async (imageUrl) => {
 	return Buffer.from(arrayBuffer);
 };
 
+
 /* Function developed by https://github.com/Zyplos */
 const resizedBufferFromImageBuffer = async (imageBuffer) => {
 	return await sharp(imageBuffer).resize(128, 128).png().toBuffer();
@@ -66,10 +67,23 @@ async function parsePresence(user) {
 		}
 	}
 
+	let decorationImage = false;
+	if(decoration) {
+		try {
+			const decorationImageBase64 = await getBase64FromUrl(decoration);
+			decorationImage = `data:image/apng;base64,${decorationImageBase64}`;
+		} catch (error) {
+			if (error?.code !== 404 && error?.code !== "ETIMEDOUT") {
+				console.error(error);
+			}
+		}
+	}
+	
+
 	return {
 		username: username,
 		displayName: displayName,
-		decorationURL: decoration,
+		decorationURL: decorationImage,
 		avatarURL: pfpImage,
 		height: 97,
 	};

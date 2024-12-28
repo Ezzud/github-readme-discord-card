@@ -27,10 +27,19 @@ class Bot {
 	}
 
 	async getSVGBadges(badges) {
+		const svgToImg = require("svg-to-img");
 		var text = "";
 		for(let i = 0; i < badges.length; i++) {
 			let badge = badges[i];
-			text += `<image x="${94.66 + (i * 24)}" y="57.11" width="24" height="24" href="https://discord-lookup.me/assets/${badge}.svg" />`
+			const response = await fetch(`https://discord-lookup.me/assets/${badge}.svg`);
+
+			if (!response.ok) {
+				return `https://discord-lookup.me/assets/${badge}.svg`;
+			}
+			let svgValue = await response.text();
+			const png = await svgToImg.from(svgValue).toPng({ encoding: "base64" });
+			const pngData = "data:image/png;base64," + png;
+			text += `<image x="${94.66 + (i * 24)}" y="57.11" width="24" height="24" xlink:href="${pngData}" />`
 		}
 		return text;
 	}
