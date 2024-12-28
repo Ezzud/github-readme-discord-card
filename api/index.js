@@ -1,7 +1,6 @@
 require("dotenv").config();
 const Bot = require('./bot');
 const express = require('express');
-const axios = require("axios");
 const bodyParser = require('body-parser');
 const logger = require('./logger');
 
@@ -10,6 +9,7 @@ const discordBot = new Bot();
 var server;
 var app;
 
+/* Start the express server */
 async function startExpress() {
 	app = express();
 	app.use(bodyParser.json());
@@ -18,7 +18,9 @@ async function startExpress() {
 	initExpressRoutes();
 }
 
+/* Initialize the express routes */
 async function initExpressRoutes() {
+	/* Route to generate a card, if no userid, displays a title */
 	app.get('/', async(req, res) => {
 		const { userid } = req.query;
 
@@ -41,6 +43,7 @@ async function initExpressRoutes() {
 	});
 }
 
+/* Display the splash screen & start the backend */
 logger.displaySplash();
 startExpress();
 

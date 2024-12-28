@@ -18,6 +18,7 @@ class Bot {
 		this._init();
 	}
 
+	/* Fetch user from Discord API */
 	async fetchUser(id) {
 		let user = await this.client.users.fetch(id).catch(err => {
 			if(err)
@@ -26,6 +27,7 @@ class Bot {
 		return user;
 	}
 
+	/* Convert User Badges to static images */
 	async getSVGBadges(badges) {
 		const svgToImg = require("svg-to-img");
 		var text = "";
@@ -44,6 +46,7 @@ class Bot {
 		return text;
 	}
 
+	/* Get user badges by bitfield */
 	async getUserBadges(user) {
 		const flags = user.flags.bitfield;
 	
@@ -95,6 +98,7 @@ class Bot {
 		return badges;
 	}
 	
+	/* Create the svg card for the user */
 	async createCard(id) {
 		let user = await this.fetchUser(id);
 		if(!user) {
@@ -110,10 +114,12 @@ class Bot {
 		return card;
 	}
 	
+	/* Get the svg render of the card */
 	async getCardRender(card) {
 		return card.render();
 	}
 
+	/* Initialize the bot */
 	async _init() {
 		this.client.on("ready", () => {
 			logger.info(`Discord Bot connected as ${this.client.user.tag}`);
