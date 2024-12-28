@@ -35,6 +35,11 @@ const getImageBufferFromUrl = async (imageUrl) => {
 	return buffer;
 };
 
+const getApngFrameRate = async (arrayBuffer) => {
+	const fr = await upng.decode(arrayBuffer);
+	return fr.frames[0].delay;
+}
+
 const getApngBufferFromUrl = async (imageUrl) => {
 	const response = await fetch(imageUrl);
 
@@ -44,12 +49,14 @@ const getApngBufferFromUrl = async (imageUrl) => {
 
 	const arrayBuffer = await response.arrayBuffer();
 	const frames = await apng.framesFromApng(arrayBuffer);
+	const frameRate = await getApngFrameRate(arrayBuffer);
+	
 	let base64Frames = [];
 	for(let i = 0; i < frames.length; i++) {
 		const frame = await frames[i].png().toBuffer();
 		base64Frames.push(frame.toString("base64"));
 	}
-	return base64Frames;
+	return {frames: base64Frames, frameRate: frameRate};
 }
 
 /* Function developed by https://github.com/Zyplos */
@@ -95,10 +102,12 @@ async function parsePresence(user) {
 
 	let decorationImage = false;
 	let decorationFrames = [];
+	let frameData = {frames: [], frameRate: 0};
 	if(decoration) {
 		try {
 			const decorationImageBase64 = await getBase64GifFromUrl(decoration);
-			const rawFrames = await getApngBufferFromUrl(decoration);
+			frameData = await getApngBufferFromUrl(decoration);
+			const rawFrames = frameData.frames;
 			for(let i = 0; i < rawFrames.length; i++) {
 				decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
 			}
@@ -114,6 +123,7 @@ async function parsePresence(user) {
 		displayName: displayName,
 		decorationURL: decorationImage,
 		decorationFrameArray: decorationFrames,
+		frameRate: frameData.frameRate,
 		avatarURL: pfpImage,
 		height: 97,
 	};

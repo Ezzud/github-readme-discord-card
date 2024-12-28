@@ -7,6 +7,7 @@ class Card {
     this.decorationURL = cardContent.decorationURL;
     this.svgs = svgs;
     this.decorationFrameArray = cardContent.decorationFrameArray;
+    this.frameRate = cardContent.frameRate;
   }
 
 	
@@ -30,12 +31,12 @@ class Card {
                          attributeName='display'
                          from="none" 
                          to="inline"
-                         dur='40ms'
+                         dur='${this.frameRate}ms'
                          fill='freeze' 
                          begin="0ms;frame_${frameCount - 1}.end"
                          repeatCount="0" 
                          />
-                <animate dur="40ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
+                <animate dur="${this.frameRate}ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
             </image>
             `
         :
@@ -46,12 +47,12 @@ class Card {
                          attributeName='display'
                          from="none" 
                          to="inline"
-                         dur='40ms'
+                         dur='${this.frameRate}ms'
                          fill='freeze' 
                          begin="frame_${index - 1}.end"
                          repeatCount="0" 
                          />
-                <animate dur="40ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
+                <animate dur="${this.frameRate}ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
             </image>
             `
         }

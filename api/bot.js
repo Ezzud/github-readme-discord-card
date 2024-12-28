@@ -110,7 +110,6 @@ class Bot {
 		let svgs = await this.getSVGBadges(badges);
 		let cardContent = await parsePresence(user);
 		let card = new Card(cardContent, svgs);
-		logger.success(`Created card for user ${user.tag}`);
 		return card;
 	}
 	
