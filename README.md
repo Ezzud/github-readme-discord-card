@@ -19,9 +19,9 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 
 ### Example with a working User ID:
 ```Markdown
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=873899503470661652)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=873899503470661652)](https://github.com/Ezzud/github-readme-discord-card)
 
 ### Example with a invalid User ID:
 ```Markdown
