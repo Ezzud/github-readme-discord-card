@@ -17,6 +17,8 @@
     "express": "^4.21.2",
     "moment": "^2.30.1",
     "sharp": "^0.33.5",
-    "svg-to-img": "^2.0.9"
+    "sharp-apng": "^0.1.5",
+    "svg-to-img": "^2.0.9",
+    "upng-js": "^2.1.0"
   }
 }

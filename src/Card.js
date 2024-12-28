@@ -6,16 +6,56 @@ class Card {
     this.height = cardContent.height;
     this.decorationURL = cardContent.decorationURL;
     this.svgs = svgs;
+    this.decorationFrameArray = cardContent.decorationFrameArray;
   }
 
 	
 
   render() {
-		const displayNameText = this.displayName;
+    this.decorationURL = undefined;
+
+	const displayNameText = this.displayName;
     const usernameText = `@${this.username}`;
     const maxTextLength = 30; // Adjust this value based on your requirements
     const baseFontSize = 16;
     const adjustedFontSize = (displayNameText.length + usernameText.length) > maxTextLength ? baseFontSize - ((displayNameText.length + usernameText.length) - maxTextLength) * 0.5 : baseFontSize;
+    
+    const frameCount = this.decorationFrameArray.length;
+    const frames = this.decorationFrameArray.map((frame, index) => `
+        ${index === 0 ? 
+            `
+            <image width="601" height="601" transform="translate(12 10) scale(0.13)" display='none' xlink:href="${frame}">
+                <animate 
+                         id='frame_${index}' 
+                         attributeName='display'
+                         from="none" 
+                         to="inline"
+                         dur='40ms'
+                         fill='freeze' 
+                         begin="0ms;frame_${frameCount - 1}.end"
+                         repeatCount="0" 
+                         />
+                <animate dur="40ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
+            </image>
+            `
+        :
+            `
+            <image width="601" height="601" transform="translate(12 10) scale(0.13)" display='none' xlink:href="${frame}">
+                <animate 
+                         id='frame_${index}' 
+                         attributeName='display'
+                         from="none" 
+                         to="inline"
+                         dur='40ms'
+                         fill='freeze' 
+                         begin="frame_${index - 1}.end"
+                         repeatCount="0" 
+                         />
+                <animate dur="40ms" attributeName="display" from="inline" to="none" begin="frame_${index}.end" repeatCount="0" fill="freeze" />
+            </image>
+            `
+        }
+    `).join('');
 
     return `
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
@@ -119,11 +159,11 @@ class Card {
                 
             </g>
         </g>
-        ${
-      this.decorationURL
-        ? `<image id="pfp-decoration" width="601" height="601" transform="translate(12 10) scale(0.13)" xlink:href="${this.decorationURL}"/>`
-        : ``
-    }
+        ${this.decorationURL ? `${
+            this.decorationURL
+                ? `<image id="pfp-decoration" width="601" height="601" transform="translate(12 10) scale(0.13)" xlink:href="${this.decorationURL}"/>`
+                : ``
+            }` : frames}
     </g>
     <g id="details-group" display="none">
         <rect id="base-details-shape" class="cls-9" x="20" y="94" width="342" height="76" rx="4"/>

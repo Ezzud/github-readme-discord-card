@@ -1,6 +1,8 @@
 require("dotenv").config();
+const { raw } = require("body-parser");
 const sharp = require("sharp");
-
+const apng = require("sharp-apng");
+const upng = require("upng-js");
 /* Function developed by https://github.com/Zyplos */
 const truncate = (input) =>
 	input.length > 32 ? `${input.substring(0, 32)}...` : input;
@@ -33,6 +35,22 @@ const getImageBufferFromUrl = async (imageUrl) => {
 	return buffer;
 };
 
+const getApngBufferFromUrl = async (imageUrl) => {
+	const response = await fetch(imageUrl);
+
+	if (!response.ok) {
+		throw new Error(`unexpected response ${response.statusText}`);
+	}
+
+	const arrayBuffer = await response.arrayBuffer();
+	const frames = await apng.framesFromApng(arrayBuffer);
+	let base64Frames = [];
+	for(let i = 0; i < frames.length; i++) {
+		const frame = await frames[i].png().toBuffer();
+		base64Frames.push(frame.toString("base64"));
+	}
+	return base64Frames;
+}
 
 /* Function developed by https://github.com/Zyplos */
 const resizedBufferFromImageBuffer = async (imageBuffer) => {
@@ -76,9 +94,14 @@ async function parsePresence(user) {
 	}
 
 	let decorationImage = false;
+	let decorationFrames = [];
 	if(decoration) {
 		try {
 			const decorationImageBase64 = await getBase64GifFromUrl(decoration);
+			const rawFrames = await getApngBufferFromUrl(decoration);
+			for(let i = 0; i < rawFrames.length; i++) {
+				decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
+			}
 			decorationImage = `data:image/gif;base64,${decorationImageBase64}`;
 		} catch (error) {
 			if (error?.code !== 404 && error?.code !== "ETIMEDOUT") {
@@ -86,11 +109,11 @@ async function parsePresence(user) {
 			}
 		}
 	}
-
 	return {
 		username: username,
 		displayName: displayName,
 		decorationURL: decorationImage,
+		decorationFrameArray: decorationFrames,
 		avatarURL: pfpImage,
 		height: 97,
 	};
