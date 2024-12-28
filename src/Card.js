@@ -1,19 +1,18 @@
 class Card {
-	constructor(cardContent, svgs) {
-		this.username = cardContent.username;
-		this.displayName = cardContent.displayName;
-		this.pfpImage = cardContent.avatarURL;
-		this.height = cardContent.height;
-		this.decorationURL = cardContent.decorationURL
-		this.svgs = svgs;
-	}
+  constructor(cardContent, svgs) {
+    this.username = cardContent.username;
+    this.displayName = cardContent.displayName;
+    this.pfpImage = cardContent.avatarURL;
+    this.height = cardContent.height;
+    this.decorationURL = cardContent.decorationURL;
+    this.svgs = svgs;
+  }
 
-	
-	render() {
-		return `
+  render() {
+    return `
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
-			this.height
-		}" viewBox="0 0 382 ${this.height}">
+      this.height
+    }" viewBox="0 0 382 ${this.height}">
 	<defs>
 		<style>
 			.cls-1{
@@ -91,7 +90,9 @@ class Card {
 		</clipPath>
 	</defs>
 	<rect id="base-shape" class="cls-2" width="382" height="${this.height}" rx="4"/>
-	<text id="username-text" class="cls-3" transform="translate(94.66 43.89)">${ this.displayName } <tspan style="fill: gray;">@${this.username}</tspan>
+	<text id="username-text" class="cls-3" transform="translate(94.66 43.89)">${
+    this.displayName
+  } <tspan style="fill: gray;">@${this.username}</tspan>
 
 	</text>
 	
@@ -104,23 +105,24 @@ class Card {
 		<g id="pfp-clip-group">
 			<g class="cls-7">
 				${
-					this.pfpImage
-						? `<image id="pfp-image" width="481" height="481" transform="translate(20 17) scale(0.13)" xlink:href="${this.pfpImage}"/>`
-						: `<rect id="pfp-image" width="481" height="481" transform="translate(20 17) scale(0.13)" fill="#7289da" />`
-				}
+          this.pfpImage
+            ? `<image id="pfp-image" width="481" height="481" transform="translate(20 17) scale(0.13)" xlink:href="${this.pfpImage}"/>`
+            : `<rect id="pfp-image" width="481" height="481" transform="translate(20 17) scale(0.13)" fill="#7289da" />`
+        }
 				
 			</g>
 		</g>
 		${
-			this.decorationURL
-				? `<image id="pfp-decoration" width="601" height="601" transform="translate(12 10) scale(0.13)" xlink:href="${this.decorationURL}"/>`
-				: ``
-		}
+      this.decorationURL
+        ? `<image id="pfp-decoration" width="601" height="601" transform="translate(12 10) scale(0.13)" xlink:href="${this.decorationURL}"/>`
+        : ``
+    }
 	</g>
 	<g id="details-group" display="none">
-	<rect id="base-details-shape" class="cls-9" x="20" y="94" width="342" height="76" rx="4"/>
+		<rect id="base-details-shape" class="cls-9" x="20" y="94" width="342" height="76" rx="4"/>
+	</g>
 </svg>`;
-	}
+  }
 }
 
 module.exports = Card;
