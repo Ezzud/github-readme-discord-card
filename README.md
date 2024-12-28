@@ -7,7 +7,7 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 
 ## How to use
 
-- Get your ![Discord User ID](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID)
+- Get your [Discord User ID](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID)
 - Add this code to your README Page:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=YOUR_DISCORD_USER_ID)](https://github.com/Ezzud/github-readme-discord-card)
@@ -19,9 +19,9 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 
 ### Example with a working User ID:
 ```Markdown
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=873899503470661652)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=873899503470661652)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
 
 ### Example with a invalid User ID:
 ```Markdown

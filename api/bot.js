@@ -90,7 +90,7 @@ class Bot {
 			}
 		}
 
-		const badges = decoded;
+		var badges = decoded;
 		if (badges.length === 0) {
 			badges = [];
 		}
