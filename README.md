@@ -21,7 +21,7 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=464180426601398302)](https://github.com/Ezzud/github-readme-discord-card)
 
 ### Example with a invalid User ID:
 ```Markdown
