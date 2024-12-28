@@ -11,6 +11,10 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 ![Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=YOUR_DISCORD_USER_ID)
 ```
 
+
+
+## Examples
+
 ### Example with a working User ID:
 ```Markdown
 ![Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)
