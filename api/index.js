@@ -37,7 +37,7 @@ async function initExpressRoutes() {
 		logger.info(`GET / - Requested card for user ${userid}`);
 		let card = await discordBot.createCard(userid);
 		let render = await discordBot.getCardRender(card);
-		logger.success(`GET / - Rendered card for user ${userid}`);
+		
 		res.setHeader('Content-Type', 'image/svg+xml');
 		res.status(200).send(render);
 	});

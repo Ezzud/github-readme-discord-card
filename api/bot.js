@@ -102,7 +102,7 @@ class Bot {
 	async createCard(id) {
 		let user = await this.fetchUser(id);
 		if(!user) {
-			logger.warning(`Failed to fetch user with ID ${id}, Using default card`);
+			logger.warning(`GET / - Failed to fetch user with ID ${id}, Rendering default card`);
 			return this.defaultCard;
 		}
 			
@@ -110,6 +110,8 @@ class Bot {
 		let svgs = await this.getSVGBadges(badges);
 		let cardContent = await parsePresence(user);
 		let card = new Card(cardContent, svgs);
+
+		logger.success(`GET / - Rendered card for user ${user.tag} (${user.id})`);
 		return card;
 	}
 	
