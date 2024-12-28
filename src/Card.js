@@ -33,12 +33,12 @@ class Card {
       }
 
 			.cls-3 {
-				font-size: 20px;
+				font-size: 16px;
 			}
 
 			.cls-8 {
 				font-family: Segoe UI;
-				font-size: 12px;
+				font-size: 10px;
 				fill: #fff;
 				font-weight: 700;
 			}

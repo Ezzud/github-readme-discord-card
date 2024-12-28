@@ -34,7 +34,7 @@ class Bot {
 			const response = await fetch(`https://discord-lookup.me/assets/${badge}.svg`);
 
 			if (!response.ok) {
-				return `https://discord-lookup.me/assets/${badge}.svg`;
+				return;
 			}
 			let svgValue = await response.text();
 			const png = await svgToImg.from(svgValue).toPng({ encoding: "base64" });
