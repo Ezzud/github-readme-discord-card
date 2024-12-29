@@ -20,7 +20,7 @@ class Bot {
 
 	/* Fetch user from Discord API */
 	async fetchUser(id) {
-		let user = await this.client.users.fetch(id).catch(err => {
+		let user = await this.client.users.fetch(id, { force:true, cache:true}).catch(err => {
 			if(err)
 				logger.error(`Failed to fetch user with ID ${id} : ${err}`);
 		})
