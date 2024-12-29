@@ -61,7 +61,7 @@ class Card {
     
 
     return `
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
+    <svg id="user_${this.username}" data-name="user_${this.username}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
       this.height
     }" viewBox="0 0 382 ${this.height}">
     <defs>
