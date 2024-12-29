@@ -6,7 +6,7 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 <p align="center">
    <a href="https://github.com/Ezzud/github-readme-discord-card" target="blank">
      <img  align="center" 
-           src="https://discord-readme-card.ezzud.fr/?userid=638773138712428575"
+           src="https://discord-readme-card.ezzud.fr/?userid=638773138712428575&v=2"
            alt="Discord Profile Card" />
     </a>
 </p>
@@ -50,10 +50,10 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&v=2)](https://github.com/Ezzud/github-readme-discord-card)
 
 ### Example with a invalid User ID:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=invaliduserid)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=invaliduserid)](https://github.com/Ezzud/github-readme-discord-card)
+[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=invaliduserid&v=2)](https://github.com/Ezzud/github-readme-discord-card)

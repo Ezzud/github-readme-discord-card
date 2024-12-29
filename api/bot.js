@@ -80,10 +80,10 @@ class Bot {
 	
 		const decoded = decodeFlags(flags, list);
 
+		/* Check if User has Nitro */
 		if (user.banner && !decoded.includes("VerifiedBot")) {
 			decoded.push("DiscordNitro");
 		}
-
 		if (user.avatar) {
 			if (user.avatar.startsWith('a_') && !decoded.includes("DiscordNitro") && !decoded.includes("VerifiedBot")) {
 				decoded.push("DiscordNitro");
