@@ -3,7 +3,6 @@ const Bot = require('./bot');
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('./logger');
-const nocache = require('nocache');
 
 const PORT = process.env.PORT || 4822;
 const discordBot = new Bot();
@@ -15,7 +14,6 @@ async function startExpress() {
 	app = express();
 	app.use(bodyParser.json());
 	app.use(express.json());
-	app.use(nocache());
 	app.set('etag', false);
 	server = app.listen(PORT, () => logger.info(`Express server started on port ${PORT}`));
 	initExpressRoutes();
@@ -42,6 +40,10 @@ async function initExpressRoutes() {
 		let card = await discordBot.createCard(userid);
 		let render = await discordBot.getCardRender(card);
 		
+		res.set({
+			"Cache-Control": "public, max-age=600, must-revalidate",
+			"Surrogate-Control": "no-store"
+		  });
 		res.setHeader('Content-Type', 'image/svg+xml');
 		res.status(200).send(render);
 	});
