@@ -9,6 +9,8 @@ class Card {
     this.decorationFrameArray = cardContent.decorationFrameArray;
     this.frameRate = cardContent.frameRate;
     this.bgColor = cardContent.bgColor;
+    this.displayNameColor = cardContent.displayNameColor;
+    this.tagColor = cardContent.tagColor;
   }
 
 	
@@ -87,14 +89,14 @@ class Card {
 
             .cls-3 {
                 font-size: ${adjustedFontSize}px;
-                fill: #fff;
+                fill: ${this.displayNameColor ? this.displayNameColor.startsWith("#") ? this.displayNameColor : `#${this.displayNameColor}` : "#fff"};
                 font-family: SegoeUI-Bold, Segoe UI;
                 font-weight: 700;
             }
 
             .cls-4 {
                 font-size: ${adjustedFontSize}px;
-                fill: #b3b5b8;
+                fill: ${this.tagColor ? this.tagColor.startsWith("#") ? this.tagColor : `#${this.tagColor}` : "#b3b5b8"};
                 font-family: SegoeUI, Segoe UI;
             }
 

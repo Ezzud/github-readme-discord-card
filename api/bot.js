@@ -110,6 +110,8 @@ class Bot {
 		let svgs = options.badges ? await this.getSVGBadges(badges) : [];
 
 		cardContent.bgColor = options.bgcolor || "#202225";
+		cardContent.displayNameColor = options.displayNameColor || "#fff";
+		cardContent.tagColor = options.tagColor || "#b3b5b8";
 		let card = new Card(cardContent, svgs);
 
 		logger.success(`GET / - Rendered card for user ${user.tag} (${user.id})`);

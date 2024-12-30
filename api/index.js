@@ -27,6 +27,8 @@ async function initExpressRoutes() {
 		const queryData = req.query;
 		const 	userid = queryData.userid,
       			bgcolor = queryData.bgcolor || "#202225",
+				displayNameColor = queryData.displaynamecolor || "#fff",
+				tagColor = queryData.tagcolor || "#b3b5b8",
       			decoration = queryData.decoration !== undefined ? queryData.decoration.toLowerCase() !== "false" : true,
       			badges = queryData.badges !== undefined ? queryData.badges.toLowerCase() !== "false" : true;
 		if(!userid) {
@@ -40,7 +42,7 @@ async function initExpressRoutes() {
 		}
 
 		logger.info(`GET / - Requested card for user ${userid}`);
-		let card = await discordBot.createCard(userid, { bgcolor:bgcolor, decoration:decoration, badges:badges });
+		let card = await discordBot.createCard(userid, { bgcolor:bgcolor, decoration:decoration, badges:badges, displayNameColor:displayNameColor, tagColor:tagColor });
 		let render = await discordBot.getCardRender(card);
 		
 		res.set({
