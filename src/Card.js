@@ -73,7 +73,7 @@ class Card {
             }
 
             .cls-2 {
-                fill: ${this.bgColor || "#202225"};
+                fill: ${this.bgColor ? this.bgColor.startsWith("#") ? this.bgColor : `#${this.bgColor}` : "#202225"};
             }
 
             .pfp-decoration {
