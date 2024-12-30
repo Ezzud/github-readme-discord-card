@@ -44,27 +44,43 @@ WITHOUT JOINING A SERVER OR GIVING ACCESS
 
 ## 🎨 Customisation
 
-### Change background color 
+<details>
+<summary>Change background color</summary>
+
+### Change background color
+
 Add the parameter `bgcolor=#XXXXXX` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=1a1b27)](https://github.com/Ezzud/github-readme-discord-card)
 ```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=1a1b27&v=2)](https://github.com/Ezzud/github-readme-discord-card)
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&v=2)](https://github.com/Ezzud/github-readme-discord-card)
+</details>
+
+<details>
+<summary>Disable Avatar Decoration</summary>
 
 ### Disable Avatar Decoration
+
 Add the parameter `decoration=false` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&decoration=false)](https://github.com/Ezzud/github-readme-discord-card)
 ```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&decoration=false&v=2)](https://github.com/Ezzud/github-readme-discord-card)
+</details>
+
+<details>
+<summary>Disable Badges</summary>
 
 ### Disable Badges
+
 Add the parameter `badges=false` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&badges=false)](https://github.com/Ezzud/github-readme-discord-card)
 ```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&badges=false&v=2)](https://github.com/Ezzud/github-readme-discord-card)
+</details>
+
 
 
 ## 📜 Examples
