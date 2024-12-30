@@ -24,8 +24,11 @@ async function initExpressRoutes() {
 
 	/* Route to generate a card, if no userid, displays a title */
 	app.get('/', async(req, res) => {
-		const { userid } = req.query;
-
+		const queryData = req.query;
+		const 	userid = queryData.userid,
+      			bgcolor = queryData.bgcolor || "#202225",
+      			decoration = queryData.decoration !== undefined ? queryData.decoration.toLowerCase() !== "false" : true,
+      			badges = queryData.badges !== undefined ? queryData.badges.toLowerCase() !== "false" : true;
 		if(!userid) {
 			res.status(200).send(`
 				<!DOCTYPE html>
@@ -37,7 +40,7 @@ async function initExpressRoutes() {
 		}
 
 		logger.info(`GET / - Requested card for user ${userid}`);
-		let card = await discordBot.createCard(userid);
+		let card = await discordBot.createCard(userid, { bgcolor:bgcolor, decoration:decoration, badges:badges });
 		let render = await discordBot.getCardRender(card);
 		
 		res.set({

@@ -8,6 +8,7 @@ class Card {
     this.svgs = svgs;
     this.decorationFrameArray = cardContent.decorationFrameArray;
     this.frameRate = cardContent.frameRate;
+    this.bgColor = cardContent.bgColor;
   }
 
 	
@@ -19,6 +20,7 @@ class Card {
     const baseFontSize = 16;
     const adjustedFontSize = (displayNameText.length + usernameText.length) > maxTextLength ? baseFontSize - ((displayNameText.length + usernameText.length) - maxTextLength) * 0.5 : baseFontSize;
     
+
     var frames;
     if(this.decorationFrameArray) {
         const frameCount = this.decorationFrameArray.length;
@@ -71,7 +73,7 @@ class Card {
             }
 
             .cls-2 {
-                fill: #202225;
+                fill: ${this.bgColor || "#202225"};
             }
 
             .pfp-decoration {

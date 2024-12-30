@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Client } = require("discord.js");
-const { parsePresence } = require("./image");
+const { fetchCardData } = require("./image");
 const Card = require("../src/Card");
 const logger = require('./logger');
 
@@ -99,16 +99,17 @@ class Bot {
 	}
 	
 	/* Create the svg card for the user */
-	async createCard(id) {
+	async createCard(id, options) {
 		let user = await this.fetchUser(id);
 		if(!user) {
 			logger.warning(`GET / - Failed to fetch user with ID ${id}, Rendering default card`);
 			return this.defaultCard;
 		}
-			
+		let cardContent = await fetchCardData(user, options.decoration);
 		let badges = await this.getUserBadges(user);
-		let svgs = await this.getSVGBadges(badges);
-		let cardContent = await parsePresence(user);
+		let svgs = options.badges ? await this.getSVGBadges(badges) : [];
+
+		cardContent.bgColor = options.bgcolor || "#202225";
 		let card = new Card(cardContent, svgs);
 
 		logger.success(`GET / - Rendered card for user ${user.tag} (${user.id})`);

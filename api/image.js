@@ -79,7 +79,7 @@ const getBase64GifFromUrl = async (imageUrl) => {
 };
 
 /* Parse user informations to create a presence card */
-async function parsePresence(user) {
+async function fetchCardData(user, convertDecoration = true) {
 	const displayName = processText(user.displayName);
 	const username = processText(user.tag);
 	const decoration = user.avatarDecorationData ? `https://cdn.discordapp.com/avatar-decoration-presets/${user.avatarDecorationData.asset}.png` : undefined;
@@ -105,13 +105,16 @@ async function parsePresence(user) {
 	let frameData = {frames: [], frameRate: 0};
 	if(decoration) {
 		try {
-			const decorationImageBase64 = await getBase64GifFromUrl(decoration);
-			frameData = await getApngBufferFromUrl(decoration);
-			const rawFrames = frameData.frames;
-			for(let i = 0; i < rawFrames.length; i++) {
-				decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
+			if(convertDecoration) {
+				const decorationImageBase64 = await getBase64GifFromUrl(decoration);
+				frameData = await getApngBufferFromUrl(decoration);
+				const rawFrames = frameData.frames;
+				for(let i = 0; i < rawFrames.length; i++) {
+					decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
+				}
+				decorationImage = `data:image/gif;base64,${decorationImageBase64}`;
 			}
-			decorationImage = `data:image/gif;base64,${decorationImageBase64}`;
+			
 		} catch (error) {
 			if (error?.code !== 404 && error?.code !== "ETIMEDOUT") {
 				console.error(error);
@@ -129,4 +132,4 @@ async function parsePresence(user) {
 	};
 }
 
-module.exports = {parsePresence};
+module.exports = {fetchCardData};
