@@ -53,11 +53,7 @@ Add the parameter `bgcolor=XXXXXX` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=1a1b27)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-```Markdown
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=1a1b27&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&v=2)](https://github.com/Ezzud/github-readme-discord-card)
 </details>
 <details>
 <summary>Change display name color</summary>
@@ -68,11 +64,7 @@ Add the parameter `displaynamecolor=XXXXXX` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&displaynamecolor=FF0000)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-```Markdown
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&displaynamecolor=1a1b27&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&displaynamecolor=FF0000&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&displaynamecolor=1a1b27&v=2)](https://github.com/Ezzud/github-readme-discord-card)
 </details>
 
 
@@ -84,11 +76,7 @@ Add the parameter `tagcolor=XXXXXX` to your url:
 ```Markdown
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&tagcolor=FF0000)](https://github.com/Ezzud/github-readme-discord-card)
 ```
-```Markdown
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&displaynamecolor=1a1b27&tagcolor=FF0000&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-```
 [![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&tagcolor=FF0000&v=2)](https://github.com/Ezzud/github-readme-discord-card)
-[![Ezzud's Github Readme Discord Card](https://discord-readme-card.ezzud.fr/?userid=638773138712428575&bgcolor=FEFEFE&displaynamecolor=1a1b27&tagcolor=FF0000&v=2)](https://github.com/Ezzud/github-readme-discord-card)
 </details>
 
 <details>
