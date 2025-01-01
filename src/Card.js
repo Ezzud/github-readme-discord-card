@@ -4,7 +4,6 @@ class Card {
     this.displayName = cardContent.displayName;
     this.pfpImage = cardContent.avatarURL;
     this.height = cardContent.height;
-    this.decorationURL = cardContent.decorationURL;
     this.svgs = svgs;
     this.decorationFrameArray = cardContent.decorationFrameArray;
     this.frameRate = cardContent.frameRate;
@@ -12,8 +11,6 @@ class Card {
     this.displayNameColor = cardContent.displayNameColor;
     this.tagColor = cardContent.tagColor;
   }
-
-	
 
   render() {
 	const displayNameText = this.displayName;

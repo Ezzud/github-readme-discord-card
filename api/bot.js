@@ -3,6 +3,7 @@ const { Client } = require("discord.js");
 const { fetchCardData } = require("./image");
 const Card = require("../src/Card");
 const logger = require('./logger');
+const fs = require("fs").promises;
 
 class Bot {
 	constructor() {
@@ -20,28 +21,37 @@ class Bot {
 
 	/* Fetch user from Discord API */
 	async fetchUser(id) {
-		let user = await this.client.users.fetch(id, { force:true, cache:true}).catch(err => {
+		let user = await this.client.users.fetch(id, { cache:true}).catch(err => {
 			if(err)
 				logger.error(`Failed to fetch user with ID ${id} : ${err}`);
 		})
 		return user;
 	}
 
+	async getBadgeBase64(badge) {
+		const filePath = `./assets/${badge}.png`;
+
+		try {
+			await fs.access(filePath);
+			const fileBuffer = await fs.readFile(filePath);
+			const base64Value = fileBuffer.toString('base64');
+			return base64Value;
+		} catch (error) {
+			logger.error(`Failed to get badge ${badge} : ${error}`);
+			return;
+		}
+	}
+
 	/* Convert User Badges to static images */
 	async getSVGBadges(badges) {
-		const svgToImg = require("svg-to-img");
 		var text = "";
 		for(let i = 0; i < badges.length; i++) {
-			let badge = badges[i];
-			const response = await fetch(`https://discord-lookup.me/assets/${badge}.svg`);
-
-			if (!response.ok) {
-				return;
+			const badge = badges[i];
+			const png = await this.getBadgeBase64(badge);
+			if(png) {
+				const pngData = "data:image/png;base64," + png;
+				text += `<image x="${94.66 + (i * 24)}" y="57.11" width="24" height="24" xlink:href="${pngData}" />`
 			}
-			let svgValue = await response.text();
-			const png = await svgToImg.from(svgValue).toPng({ encoding: "base64" });
-			const pngData = "data:image/png;base64," + png;
-			text += `<image x="${94.66 + (i * 24)}" y="57.11" width="24" height="24" xlink:href="${pngData}" />`
 		}
 		return text;
 	}
@@ -113,8 +123,6 @@ class Bot {
 		cardContent.displayNameColor = options.displayNameColor || "#fff";
 		cardContent.tagColor = options.tagColor || "#b3b5b8";
 		let card = new Card(cardContent, svgs);
-
-		logger.success(`GET / - Rendered card for user ${user.tag} (${user.id})`);
 		return card;
 	}
 	

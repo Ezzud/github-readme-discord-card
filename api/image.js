@@ -1,8 +1,8 @@
 require("dotenv").config();
-const { raw } = require("body-parser");
 const sharp = require("sharp");
 const apng = require("sharp-apng");
 const upng = require("upng-js");
+const logger = require("./logger");
 /* Function developed by https://github.com/Zyplos */
 const truncate = (input) =>
 	input.length > 32 ? `${input.substring(0, 32)}...` : input;
@@ -44,7 +44,8 @@ const getApngBufferFromUrl = async (imageUrl) => {
 	const response = await fetch(imageUrl);
 
 	if (!response.ok) {
-		throw new Error(`unexpected response ${response.statusText}`);
+		logger.error(`Unable to fetch avatar decoration: ${response.statusText}`);
+		return {frames: [], frameRate: 0};
 	}
 
 	const arrayBuffer = await response.arrayBuffer();
@@ -71,13 +72,6 @@ const getBase64FromUrl = async (imageUrl) => {
 	return sharpBuffer.toString("base64");
 };
 
-/* Get a base64 gif from a URL */
-const getBase64GifFromUrl = async (imageUrl) => {
-    const imageBuffer = await getImageBufferFromUrl(imageUrl);
-    const gifBuffer = await sharp(imageBuffer).gif().toBuffer();
-    return gifBuffer.toString("base64");
-};
-
 /* Parse user informations to create a presence card */
 async function fetchCardData(user, convertDecoration = true) {
 	const displayName = processText(user.displayName);
@@ -100,19 +94,16 @@ async function fetchCardData(user, convertDecoration = true) {
 		}
 	}
 
-	let decorationImage = false;
 	let decorationFrames = [];
 	let frameData = {frames: [], frameRate: 0};
 	if(decoration) {
 		try {
 			if(convertDecoration) {
-				const decorationImageBase64 = await getBase64GifFromUrl(decoration);
 				frameData = await getApngBufferFromUrl(decoration);
 				const rawFrames = frameData.frames;
 				for(let i = 0; i < rawFrames.length; i++) {
 					decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
 				}
-				decorationImage = `data:image/gif;base64,${decorationImageBase64}`;
 			}
 			
 		} catch (error) {
@@ -124,7 +115,6 @@ async function fetchCardData(user, convertDecoration = true) {
 	return {
 		username: username,
 		displayName: displayName,
-		decorationURL: decorationImage,
 		decorationFrameArray: decorationFrames,
 		frameRate: frameData.frameRate,
 		avatarURL: pfpImage,

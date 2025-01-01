@@ -40,17 +40,18 @@ async function initExpressRoutes() {
 			logger.error(`GET / - Failed to generate card : Missing userid`);
 			return;
 		}
-
+		let startTime = new Date().getTime();
 		logger.info(`GET / - Requested card for user ${userid}`);
 		let card = await discordBot.createCard(userid, { bgcolor:bgcolor, decoration:decoration, badges:badges, displayNameColor:displayNameColor, tagColor:tagColor });
 		let render = await discordBot.getCardRender(card);
-		
 		res.set({
-			"Cache-Control": "public, max-age=600, must-revalidate",
+			"Cache-Control": "public, max-age=900, must-revalidate",
 			"Surrogate-Control": "no-store"
 		  });
 		res.setHeader('Content-Type', 'image/svg+xml');
-		res.status(200).send(render);
+		await res.status(200).send(render);
+		logger.success(`GET / - Rendered card for user ${card.username} (${userid}) - ${new Date().getTime() - startTime}ms`);
+		return;
 	});
 }
 
