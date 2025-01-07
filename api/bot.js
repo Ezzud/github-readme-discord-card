@@ -28,6 +28,7 @@ class Bot {
 		return user;
 	}
 
+	/* Get the base64 value of a badge */
 	async getBadgeBase64(badge) {
 		const filePath = `./assets/${badge}.png`;
 

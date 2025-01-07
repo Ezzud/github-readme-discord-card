@@ -70,6 +70,7 @@ Add the parameter `displaynamecolor=XXXXXX` to your url:
 
 <details>
 <summary>Change tag color</summary>
+
 ### Change tag color
 
 Add the parameter `tagcolor=XXXXXX` to your url:

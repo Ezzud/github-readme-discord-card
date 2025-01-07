@@ -35,11 +35,13 @@ const getImageBufferFromUrl = async (imageUrl) => {
 	return buffer;
 };
 
+/* Get the framerate of an APNG */
 const getApngFrameRate = async (arrayBuffer) => {
 	const fr = await upng.decode(arrayBuffer);
 	return fr.frames[0].delay;
 }
 
+/* Get the array of frames from an APNG */
 const getApngBufferFromUrl = async (imageUrl) => {
 	const response = await fetch(imageUrl);
 
@@ -116,6 +118,7 @@ async function fetchCardData(user, convertDecoration = true) {
 		username: username,
 		displayName: displayName,
 		decorationFrameArray: decorationFrames,
+		displayNameColor: "#fff",
 		frameRate: frameData.frameRate,
 		avatarURL: pfpImage,
 		height: 97,
