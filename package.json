@@ -1,10 +1,11 @@
 {
   "name": "github-readme-discord-card",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "API To display a Discord profile on your GitHub README",
   "main": "index.js",
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js"
   },
   "author": "ezzud",
   "engines": {
@@ -19,5 +20,8 @@
     "sharp": "^0.33.5",
     "sharp-apng": "^0.1.5",
     "upng-js": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

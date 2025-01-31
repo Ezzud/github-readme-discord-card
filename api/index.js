@@ -15,7 +15,7 @@ async function startExpress() {
 	app.use(bodyParser.json());
 	app.use(express.json());
 	app.set('etag', false);
-	server = app.listen(PORT, () => logger.info(`Express server started on port ${PORT}`));
+	server = app.listen(PORT, () => logger.info(`Express server started on http://localhost:${PORT}`));
 	initExpressRoutes();
 }
 
