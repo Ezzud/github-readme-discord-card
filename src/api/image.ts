@@ -52,7 +52,7 @@ export default class ImageHandler {
         const response = await fetch(imageUrl);
 
         if (!response.ok) {
-            this.logger.error(`Unable to fetch avatar decoration: ${response.statusText}`);
+            this.logger.error(`Unable to fetch avatar decoration: ${response.statusText}`, this.getApngBufferFromUrl.name);
             return {frames: [], frameRate: 0};
         }
 

@@ -1,5 +1,6 @@
-import * as moment from "moment/moment";
+import moment from "moment/moment";
 import {appendFileSync, existsSync, mkdirSync} from "fs";
+import * as info from "../../package.json";
 interface ILogger {
     Colors: {
         RESET: string,
@@ -14,7 +15,7 @@ interface ILogger {
     },
     log: (msg:string) => void,
     info: (msg:string) => void,
-    error: (err:string) => void,
+    error: (err:string, caller: string) => void,
     warning: (msg:string) => void,
     success: (msg:string) => void,
     getTime: () => string,
@@ -42,11 +43,11 @@ export default class Logger implements ILogger {
 
     displaySplash() {
         const bar = "━".repeat(64);
-        const nameSplash = `${process.env.npm_package_name}  v${process.env.npm_package_version}  `;
+        const nameSplash = `${info.name}  v${info.version}  `;
         let nameSpaces = " ".repeat((bar.length - nameSplash.length - 4) / 2);
         if(nameSpaces.length % 2 !== 0) nameSpaces += " ";
 
-        const devSplash = `Author:  ${process.env.npm_package_author}  `;
+        const devSplash = `Author:  ${info.author}  `;
         let devSpaces = " ".repeat((bar.length - devSplash.length - 4) / 2);
         if(devSpaces.length % 2 !== 0) devSpaces += " ";
 
@@ -80,8 +81,8 @@ export default class Logger implements ILogger {
         this.log(message);
     }
 
-    error(message: string) {
-        console.log(`${this.getTime()} ${this.Colors.RED}⁞⁞⁞${this.Colors.RESET} ${message}`);
+    error(message: string, caller: string) {
+        console.log(`${this.getTime()} ${this.Colors.RED}⁞⁞⁞${this.Colors.RESET} ${message} ${this.Colors.PURPLE}||${this.Colors.RESET} ${caller}`);
         this.log(message);
     }
 

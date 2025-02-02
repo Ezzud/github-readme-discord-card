@@ -2,7 +2,7 @@ import Logger from "./logger";
 
 import 'dotenv/config';
 import Bot from "./bot";
-import * as express from 'express';
+import express from 'express';
 import { Express } from "express-serve-static-core";
 import {CardOptions} from "../classes/Card";
 import * as bodyParser from "body-parser";
@@ -46,7 +46,7 @@ async function initExpressRoutes() {
 					<h1>📈 Github Readme Discord Card</h1>
 						<p>Syntax: <strong style="background-color: #404040; color:white; padding: 4px;">https://discord-readme-card.ezzud.fr?userid=your_discord_id</strong></p>
 				</html>`);
-            logger.error(`GET / - Failed to generate card : Missing userid`);
+            logger.error(`GET / - Failed to generate card : Missing userid`, self.name);
             return;
         }
         const startTime = new Date().getTime();

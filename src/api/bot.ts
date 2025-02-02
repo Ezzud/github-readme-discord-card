@@ -21,21 +21,23 @@ export default class Bot {
     async fetchUser(id: string) {
         const user = await this.client.users.fetch(id, { cache:true}).catch(err => {
             if(err)
-                this.logger.error(`Failed to fetch user with ID ${id} : ${err}`);
+                this.logger.error(`Failed to fetch user with ID ${id} : ${err}`, this.fetchUser.name);
         });
         return user;
     }
 
     /* Get the base64 value of a badge */
     async getBadgeBase64(badge:string) {
-        const filePath = `./assets/${badge}.png`;
+        const filePath = `/assets/${badge}.png`;
+        const tmp = __dirname.split("/");
+        const completeFilePath = tmp.filter((_val, index) => index != tmp.length-1).join("/")+filePath;
 
         try {
-            await fs.access(filePath);
-            const fileBuffer = await fs.readFile(filePath);
+            await fs.access(completeFilePath);
+            const fileBuffer = await fs.readFile(completeFilePath);
             return fileBuffer.toString('base64');
         } catch (error) {
-            this.logger.error(`Failed to get badge ${badge} : ${error}`);
+            this.logger.error(`Failed to get badge ${badge} : ${error}`, this.getBadgeBase64.name);
             return;
         }
     }
@@ -143,7 +145,7 @@ export default class Bot {
 
         this.client.on("error", (err: Error) => {
             const message: string = err.message + "\n" + "Stack Trace: \n\t" + (err.stack ?? "No stack trace found...");
-            this.logger.error(message);
+            this.logger.error(message, this._init.name);
         });
     }
 }
