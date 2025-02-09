@@ -4,7 +4,7 @@
   "description": "API To display a Discord profile on your GitHub README",
   "main": "index.ts",
   "scripts": {
-    "start": "node src/api/index.ts",
+    "start": "ts-node src/api/index.ts",
     "dev": "nodemon src/api/index.ts",
     "lint": "npx eslint --report-unused-disable-directives src -f gha",
     "lint-fix": "npx eslint --report-unused-disable-directives --fix src -f gha"
