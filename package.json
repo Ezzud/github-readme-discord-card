@@ -10,6 +10,13 @@
     "lint-fix": "npx eslint --report-unused-disable-directives --fix src -f gha"
   },
   "author": "ezzud",
+  "contributors": [
+    {
+      "name": "obscaeris",
+      "email": "contact@obscaeris.com",
+      "url": "https://github.com/Obscaeris"
+    }
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
