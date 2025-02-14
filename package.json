@@ -1,6 +1,6 @@
 {
   "name": "github-readme-discord-card",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "API To display a Discord profile on your GitHub README",
   "main": "index.ts",
   "scripts": {
