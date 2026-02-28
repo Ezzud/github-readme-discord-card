@@ -143,7 +143,7 @@ class Bot {
 
 	/* Initialize the bot */
 	async _init() {
-		this.client.on("ready", () => {
+		this.client.on("clientReady", () => {
 			logger.info(`Discord Bot connected as ${this.client.user.tag}`);
 		});
 		await this.client.login(process.env.BOT_TOKEN);
