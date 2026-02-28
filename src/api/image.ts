@@ -146,18 +146,14 @@ export default class ImageHandler {
             }
         }
 
-        const decorationFrames = [];
+        let decorationFrames: string[] = [];
         let frameData: {frames: string[], frameRate: number} = {frames: [], frameRate: 0};
-        if(decoration) {
+        if (decoration) {
             try {
-                if(convertDecoration) {
+                if (convertDecoration) {
                     frameData = await this.getApngBufferFromUrl(decoration);
-                    const rawFrames = frameData.frames;
-                    for(let i = 0; i < rawFrames.length; i++) {
-                        decorationFrames.push(`data:image/png;base64,${rawFrames[i]}`);
-                    }
+                    decorationFrames = frameData.frames.map(f => `data:image/png;base64,${f}`);
                 }
-
             } catch (error) {
                 const err = error as {code:number | string};
                 if (err.code !== 404 && err.code !== "ETIMEDOUT") {

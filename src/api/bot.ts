@@ -51,15 +51,19 @@ export default class Bot {
      * @returns The fetched user or undefined if the user could not be fetched
      */
     async fetchUser(id: string) {
-        if(this.client.users.cache.has(id)) {
+        if (this.client.users.cache.has(id)) {
             return this.client.users.cache.get(id);
         }
-        const user = await this.client.users.fetch(id, { cache:true }).catch(err => {
-            if (err)
-                this.logger.error(`Failed to fetch user with ID ${id} : ${err}`, this.fetchUser.name);
-        });
+
+        let user;
+        try {
+            user = await this.client.users.fetch(id, { cache: true });
+        } catch (err) {
+            this.logger.error(`Failed to fetch user with ID ${id} : ${err}`, this.fetchUser.name);
+            return undefined;
+        }
         if (user) {
-            // Remove user from discord.js cache after 4 hours (14,400s)
+            // Remove user from discord.js cache after 4 hours
             setTimeout(() => {
                 this.client.users.cache.sweep((_value, key) => key === id);
             }, 14_400_000);
@@ -88,11 +92,11 @@ export default class Bot {
      * @returns A string containing the svg elements for the badges
      */
     async getSVGBadges(badges: string[]) {
+        const badgeBase64Arr = await Promise.all(badges.map(badge => this.getBadgeBase64(badge)));
         let text = "";
-        for(let i = 0; i < badges.length; i++) {
-            const badge = badges[i];
-            const png = await this.getBadgeBase64(badge);
-            if(png) {
+        for (let i = 0; i < badges.length; i++) {
+            const png = badgeBase64Arr[i];
+            if (png) {
                 const pngData = "data:image/png;base64," + png;
                 text += `<image x="${94.66 + (i * 24)}" y="57.11" width="24" height="24" href="${pngData}" />`;
             }
