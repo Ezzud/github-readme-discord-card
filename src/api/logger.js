@@ -17,7 +17,7 @@ function getTime() {
 }
 
 function displaySplash() {
-	let info = require("../package.json");
+	let info = require("../../package.json");
 	let bar = "━".repeat(64);
 	let nameSplash = `${info.name}  v${info.version}  `;
 	let nameSpaces = " ".repeat((bar.length - nameSplash.length - 4) / 2);
