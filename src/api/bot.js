@@ -3,6 +3,7 @@ const { Client } = require("discord.js");
 const { fetchCardData } = require("./image");
 const Card = require("../class/Card");
 const logger = require('./logger');
+const { start } = require("repl");
 const fs = require("fs").promises;
 
 class Bot {
@@ -21,20 +22,19 @@ class Bot {
 
 	/* Fetch user from Discord API */
 	async fetchUser(id) {
-		if(this.client.users.cache.has(id)) {
-			return this.client.users.cache.get(id);
-		}
 		let user = await this.client.users.fetch(id, { cache:true}).catch(err => {
 			if(err)
 				logger.error(`Failed to fetch user with ID ${id} : ${err}`);
 		})
+		startCacheSweeper(id);
+		return user;
+	}
 
+	startCacheSweeper(id) {
 		setTimeout(() => {
             this.client.users.cache.sweep((_value, key) => key === id);
 			logger.log(`User with ID ${id} removed from cache`);
         }, 14_400_000);
-
-		return user;
 	}
 
 	/* Get the base64 value of a badge */
