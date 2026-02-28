@@ -5,7 +5,6 @@ import Bot from "./bot";
 import express from 'express';
 import { Express } from "express-serve-static-core";
 import {CardOptions} from "../classes/Card";
-import * as bodyParser from "body-parser";
 import { parseBool, ensureHash } from "./utils";
 
 
@@ -18,7 +17,6 @@ let app: Express;
 /* Start the express server */
 async function startExpress() {
     app = express();
-    app.use(bodyParser.json());
     app.use(express.json());
     app.set('etag', false);
     server = app.listen(PORT, () => logger.info(`Express server started on http://localhost:${PORT}`));
@@ -52,10 +50,12 @@ async function initExpressRoutes() {
 
         // Early return if userid is missing
         if (!queryData.userid) {
+            res.setHeader('X-Minimum-Response-Time', '2000ms');
             res.status(200).send(`
                 <!DOCTYPE html>
                 <h1>📈 Github Readme Discord Card</h1>
                 <p>Syntax: <strong style="background-color: #404040; color:white; padding: 4px;">https://discord-readme-card.ezzud.fr?userid=your_discord_id</strong></p>
+                <p style="color: #888;">Note: Minimum response time is 2000ms. Do not use a timeout less than this.</p>
                 </html>`);
             return;
         }
@@ -78,11 +78,8 @@ async function initExpressRoutes() {
         const render = await discordBot.getCardRender(card);
 
         // Set response headers
-        res.set({
-            "Cache-Control": "public, max-age=900, must-revalidate",
-            "Surrogate-Control": "no-store"
-        });
-        res.setHeader('Content-Type', 'image/svg+xml');
+        res.setHeader("Cache-Control", "public, max-age=900");
+        res.set("Content-Type", "image/svg+xml");
 
         // Send response
         res.status(200).send(render);
