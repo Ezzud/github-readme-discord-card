@@ -9,13 +9,40 @@ export default class Bot {
     defaultCard: Card;
     client: Client;
     logger: Logger = new Logger();
+    badgeBase64Map: Record<string, string> = {};
 
     constructor() {
         this.client = new Client({
             intents: [],
         });
         this.defaultCard = Card.UserNotFound;
+        this._preloadBadges();
         this._init().then(_r => {});
+    }
+
+    /**
+     * Preload all badge images as base64 strings into badgeBase64Map
+     */
+    async _preloadBadges() {
+        const assetsDir = path.join(process.cwd(), 'src', 'assets');
+        try {
+            const files = await fs.readdir(assetsDir);
+            for (const file of files) {
+                if (file.endsWith('.png')) {
+                    const badgeName = file.replace(/\.png$/, '');
+                    const filePath = path.join(assetsDir, file);
+                    try {
+                        const fileBuffer = await fs.readFile(filePath);
+                        this.badgeBase64Map[badgeName] = fileBuffer.toString('base64');
+                    } catch (err) {
+                        this.logger.error(`Failed to preload badge ${badgeName}: ${err}`, this._preloadBadges.name);
+                    }
+                }
+            }
+            this.logger.info(`Preloaded ${Object.keys(this.badgeBase64Map).length} badges as base64 strings.`);
+        } catch (err) {
+            this.logger.error(`Failed to read badges directory: ${err}`, this._preloadBadges.name);
+        }
     }
 
     /**
@@ -24,6 +51,9 @@ export default class Bot {
      * @returns The fetched user or undefined if the user could not be fetched
      */
     async fetchUser(id: string) {
+        if(this.client.users.cache.has(id)) {
+            return this.client.users.cache.get(id);
+        }
         const user = await this.client.users.fetch(id, { cache:true }).catch(err => {
             if (err)
                 this.logger.error(`Failed to fetch user with ID ${id} : ${err}`, this.fetchUser.name);
@@ -44,14 +74,10 @@ export default class Bot {
      * @return An object containing the data needed to create a card for the user
      */
     async getBadgeBase64(badge:string) {
-        const completeFilePath = path.join(process.cwd(), 'src', 'assets', `${badge}.png`);
-
-        try {
-            await fs.access(completeFilePath);
-            const fileBuffer = await fs.readFile(completeFilePath);
-            return fileBuffer.toString('base64');
-        } catch (error) {
-            this.logger.error(`Failed to get badge ${badge} : ${error}`, this.getBadgeBase64.name);
+        if (this.badgeBase64Map[badge]) {
+            return this.badgeBase64Map[badge];
+        } else {
+            this.logger.error(`Badge base64 not found for: ${badge}`, this.getBadgeBase64.name);
             return;
         }
     }

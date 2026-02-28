@@ -125,7 +125,7 @@ export default class Card implements ICard {
     render(): string {
         const displayNameText: string = this.displayName;
         const usernameText: string = `@${this.username}`;
-        const maxTextLength: number = 30; // Adjust this value based on your requirements
+        const maxTextLength: number = 30;
         const baseFontSize: number = 16;
         const adjustedFontSize: number = (displayNameText.length + usernameText.length) > maxTextLength ? baseFontSize - ((displayNameText.length + usernameText.length) - maxTextLength) * 0.5 : baseFontSize;
 
@@ -169,8 +169,9 @@ export default class Card implements ICard {
             `).join('');
         }
 
+        let d = Date.now();
         return `
-            <svg id="user_${this.username}_${new Date().getTime()}" data-name="user_${this.username}_${new Date().getTime()}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
+            <svg id="user_${this.username}_${d}" data-name="user_${this.username}_${d}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="382" height="${
                 this.height
             }" viewBox="0 0 382 ${this.height}">
             <defs>
@@ -180,7 +181,7 @@ export default class Card implements ICard {
                     }
 
                     .cls-2 {
-                        fill: ${this.bgColor ? this.bgColor.startsWith("#") ? this.bgColor : `#${this.bgColor}` : "#202225"};
+                        fill: ${this.bgColor || "#202225"};
                     }
 
                     .pfp-decoration {
@@ -194,14 +195,14 @@ export default class Card implements ICard {
 
                     .cls-3 {
                         font-size: ${adjustedFontSize}px;
-                        fill: ${this.displayNameColor ? this.displayNameColor.startsWith("#") ? this.displayNameColor : `#${this.displayNameColor}` : "#fff"};
+                        fill: ${this.displayNameColor || "#fff"};
                         font-family: SegoeUI-Bold, Segoe UI;
                         font-weight: 700;
                     }
 
                     .cls-4 {
                         font-size: ${adjustedFontSize}px;
-                        fill: ${this.tagColor ? this.tagColor.startsWith("#") ? this.tagColor : `#${this.tagColor}` : "#b3b5b8"};
+                        fill: ${this.tagColor || "#b3b5b8"};
                         font-family: SegoeUI, Segoe UI;
                     }
 
