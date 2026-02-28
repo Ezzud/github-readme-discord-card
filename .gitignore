@@ -2,6 +2,7 @@ node_modules
 .vscode
 .env
 pnpm-lock.yaml
+pnpm-workspace.yaml
 package-lock.json
 *.log
 .idea
