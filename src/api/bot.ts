@@ -29,10 +29,10 @@ export default class Bot {
                 this.logger.error(`Failed to fetch user with ID ${id} : ${err}`, this.fetchUser.name);
         });
         if (user) {
-            // Remove user from discord.js cache after 900s using sweep
+            // Remove user from discord.js cache after 4 hours (14,400s)
             setTimeout(() => {
                 this.client.users.cache.sweep((_value, key) => key === id);
-            }, 900_000);
+            }, 14_400_000);
         }
         return user;
     }
