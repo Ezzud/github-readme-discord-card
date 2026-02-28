@@ -77,7 +77,6 @@ export default class ImageHandler {
      */
     async getApngBufferFromUrl(imageUrl: string){
         const response = await fetch(imageUrl);
-
         if (!response.ok) {
             this.logger.error(`Unable to fetch avatar decoration: ${response.statusText}`, this.getApngBufferFromUrl.name);
             return {frames: [], frameRate: 0};
@@ -87,11 +86,12 @@ export default class ImageHandler {
         const frames: Sharp[] = apng.framesFromApng(Buffer.from(arrayBuffer), false) as Sharp[];
         const frameRate: number = this.getApngFrameRate(arrayBuffer);
 
-        const base64Frames = [];
-        for(let i = 0; i < frames.length; i++) {
-            const frame = await frames[i].png().toBuffer();
-            base64Frames.push(frame.toString("base64"));
-        }
+        const base64Frames = await Promise.all(
+            frames.map(async (frame) => {
+                const buf = await frame.png().toBuffer();
+                return buf.toString("base64");
+            })
+        );
         return {frames: base64Frames, frameRate: frameRate};
     };
 

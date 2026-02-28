@@ -50,7 +50,6 @@ async function initExpressRoutes() {
 
         // Early return if userid is missing
         if (!queryData.userid) {
-            res.setHeader('X-Minimum-Response-Time', '2000ms');
             res.status(200).send(`
                 <!DOCTYPE html>
                 <h1>📈 Github Readme Discord Card</h1>
