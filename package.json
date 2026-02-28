@@ -1,46 +1,24 @@
 {
   "name": "github-readme-discord-card",
-  "version": "2.1.0",
+  "version": "1.0.2-legacy",
   "description": "API To display a Discord profile on your GitHub README",
-  "main": "index.ts",
+  "main": "src/api/index.js",
   "scripts": {
-    "start": "ts-node src/api/index.ts",
-    "dev": "nodemon src/api/index.ts",
-    "lint": "npx eslint --report-unused-disable-directives src -f gha",
-    "lint-fix": "npx eslint --report-unused-disable-directives --fix src -f gha"
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "author": "ezzud",
-  "contributors": [
-    {
-      "name": "obscaeris",
-      "email": "contact@obscaeris.com",
-      "url": "https://github.com/Obscaeris"
-    }
-  ],
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin-js": "^2.6.4",
     "body-parser": "^1.20.3",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "moment": "^2.30.1",
-    "path": "^0.12.7",
     "sharp": "^0.33.5",
     "sharp-apng": "^0.1.5",
-    "typescript-eslint": "^8.2.0",
     "upng-js": "^2.1.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@types/express": "^5.0.0",
-    "@types/upng-js": "^2.1.5",
-    "eslint": "^8.57.0",
-    "eslint-formatter-gha": "^1.5.0",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
   }
 }
