@@ -6,6 +6,8 @@ import express from 'express';
 import { Express } from "express-serve-static-core";
 import {CardOptions} from "../classes/Card";
 import * as bodyParser from "body-parser";
+import { parseBool, ensureHash } from "./utils";
+
 
 const PORT = process.env.PORT || 4822;
 const discordBot = new Bot();
@@ -24,50 +26,67 @@ async function startExpress() {
     return server;
 }
 
+const defaultQueryData = {
+    userid: "",
+    bgcolor: "#202225",
+    displaynamecolor: "#fff",
+    tagcolor: "#b3b5b8",
+    decoration: true,
+    badges: true,
+};
+
 /* Initialize the express routes */
 async function initExpressRoutes() {
 
     /* Route to generate a card, if no userid, displays a title */
     app.get('/', async(req, res) => {
-        const queryData = req.query;
-        const userid = queryData.userid as string;
-        const bgcolor = queryData.bgcolor as string || "#202225";
-        const displayNameColor = queryData.displaynamecolor as string || "#fff";
-        const tagColor = queryData.tagcolor as string || "#b3b5b8";
-        const decoData = queryData.decoration;
-        let decoration:boolean = true;
-        if(typeof decoData === "string" ) { decoration = decoData.toLowerCase() !== "false"; }
-        const badgesData = queryData.decoration;
-        let badges:boolean = true;
-        if(typeof badgesData === "string" ) { badges = badgesData.toLowerCase() !== "false"; }
-        if(!userid) {
+        // Parse and normalize query parameters
+        const queryData = {
+            userid: req.query.userid as string || defaultQueryData.userid,
+            bgcolor: ensureHash(req.query.bgcolor as string || defaultQueryData.bgcolor),
+            displaynamecolor: ensureHash(req.query.displaynamecolor as string || defaultQueryData.displaynamecolor),
+            tagcolor: ensureHash(req.query.tagcolor as string || defaultQueryData.tagcolor),
+            decoration: parseBool(req.query.decoration, defaultQueryData.decoration),
+            badges: parseBool(req.query.badges, defaultQueryData.badges),
+        };
+
+        // Early return if userid is missing
+        if (!queryData.userid) {
             res.status(200).send(`
-				<!DOCTYPE html>
-					<h1>📈 Github Readme Discord Card</h1>
-						<p>Syntax: <strong style="background-color: #404040; color:white; padding: 4px;">https://discord-readme-card.ezzud.fr?userid=your_discord_id</strong></p>
-				</html>`);
-            logger.error(`GET / - Failed to generate card : Missing userid`, self.name);
+                <!DOCTYPE html>
+                <h1>📈 Github Readme Discord Card</h1>
+                <p>Syntax: <strong style="background-color: #404040; color:white; padding: 4px;">https://discord-readme-card.ezzud.fr?userid=your_discord_id</strong></p>
+                </html>`);
             return;
         }
-        const startTime = new Date().getTime();
-        logger.info(`GET / - Requested card for user ${userid}`);
-        const cardOptions = new CardOptions(
-            undefined,undefined,
-            displayNameColor, undefined,
-            undefined,undefined,
-            bgcolor,tagColor,
-            undefined,undefined,
-            decoration,badges ? []:undefined,
-        );
-        const card = await discordBot.createCard(userid, cardOptions);
+
+        // Log request
+        const startTime = Date.now();
+        logger.info(`GET / - Requested card for user ${queryData.userid}`);
+
+        // Prepare card options
+        const cardOptions = new CardOptions({
+            displayNameColor: queryData.displaynamecolor,
+            bgColor: queryData.bgcolor,
+            tagColor: queryData.tagcolor,
+            hasDecoration: queryData.decoration,
+            badges: queryData.badges ? [] : undefined,
+        });
+
+        // Generate card and render
+        const card = await discordBot.createCard(queryData.userid, cardOptions);
         const render = await discordBot.getCardRender(card);
+
+        // Set response headers
         res.set({
             "Cache-Control": "public, max-age=900, must-revalidate",
             "Surrogate-Control": "no-store"
         });
         res.setHeader('Content-Type', 'image/svg+xml');
-        await res.status(200).send(render);
-        logger.success(`GET / - Rendered card for user ${card.username} (${userid}) - ${new Date().getTime() - startTime}ms`);
+
+        // Send response
+        res.status(200).send(render);
+        logger.success(`GET / - Rendered card for user ${card.username} (${queryData.userid}) - ${Date.now() - startTime}ms`);
         return;
     });
 }
