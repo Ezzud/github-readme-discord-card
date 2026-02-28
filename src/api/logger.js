@@ -28,7 +28,7 @@ function displaySplash() {
 	if(devSpaces.length % 2 !== 0) devSpaces += " ";
 
 	console.log(`${Colors.BLUE}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${Colors.RESET}`)
-	console.log(`${Colors.BLUE}┃  ${nameSpaces}${Colors.YELLOW}${nameSplash}${Colors.RESET}${nameSpaces}  ${Colors.BLUE}┃${Colors.RESET}`)
+	console.log(`${Colors.BLUE}┃  ${nameSpaces}${Colors.YELLOW}${nameSplash}${Colors.RESET}${nameSpaces}   ${Colors.BLUE}┃${Colors.RESET}`)
 	console.log(`${Colors.BLUE}┃  ${devSpaces}${Colors.PURPLE}${devSplash}${Colors.RESET}${devSpaces}  ${Colors.BLUE}┃${Colors.RESET}`)
 	console.log(`${Colors.BLUE}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${Colors.RESET}`)
 	console.log("");
