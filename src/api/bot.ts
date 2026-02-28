@@ -63,10 +63,10 @@ export default class Bot {
             return undefined;
         }
         if (user) {
-            // Remove user from discord.js cache after 4 hours
+            // Remove user from discord.js cache after 24 hours
             setTimeout(() => {
                 this.client.users.cache.sweep((_value, key) => key === id);
-            }, 14_400_000);
+            }, 86_400_000);
         }
         return user;
     }
