@@ -20,21 +20,21 @@ class Bot {
 		this._init();
 	}
 
+	startCacheSweeper(id) {
+		setTimeout(() => {
+            this.client.users.cache.sweep((_value, key) => key === id);
+			logger.log(`User with ID ${id} removed from cache`);
+        }, 14_400_000);
+	}
+
 	/* Fetch user from Discord API */
 	async fetchUser(id) {
 		let user = await this.client.users.fetch(id, { cache:true}).catch(err => {
 			if(err)
 				logger.error(`Failed to fetch user with ID ${id} : ${err}`);
 		})
-		startCacheSweeper(id);
+		this.startCacheSweeper(id);
 		return user;
-	}
-
-	startCacheSweeper(id) {
-		setTimeout(() => {
-            this.client.users.cache.sweep((_value, key) => key === id);
-			logger.log(`User with ID ${id} removed from cache`);
-        }, 14_400_000);
 	}
 
 	/* Get the base64 value of a badge */
