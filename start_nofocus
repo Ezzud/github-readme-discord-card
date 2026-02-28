@@ -1,1 +1,1 @@
-screen -SL "github-readme-discord-card" ./infinite
+screen -dmSL "github-readme-discord-card" ./infinite
