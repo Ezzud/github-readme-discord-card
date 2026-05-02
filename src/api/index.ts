@@ -78,6 +78,8 @@ async function initExpressRoutes() {
 
         // Set response headers
         res.setHeader("Cache-Control", "public, max-age=900");
+        // Allow CORS for all origins
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.set("Content-Type", "image/svg+xml");
 
         // Send response
